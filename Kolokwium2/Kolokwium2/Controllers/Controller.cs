@@ -16,23 +16,31 @@ public class Controller : ControllerBase
     {
         _dbService = dbService;
     }
-    
-    [HttpPost]
-    public async Task<IActionResult> AddSmth()
+
+    [HttpGet("{characterId}")]
+    public async Task<IActionResult> GetSmth(int characterId)
     {
-        return Ok();
-    }
-    
-    [HttpGet]
-    public async Task<IActionResult> GetSmth()
-    {
-        return Ok();
+        if (_dbService.DoesCharacterExist(characterId).Result)
+        {
+            return NotFound();
+        }
+
+        var character = await _dbService.GetCharacter(characterId);
+        
+        return Ok(
+            character.Select(e=> new CharacterGetDTO()
+            {
+                FirstName = e.FirstName,
+                LastName = e.LastName,
+                CurrentWeight = e.CurrentWeight,
+                MaxWeight = e.MaxWeight,
+                Title = e.CharacterTitles.Select(i=>new CharacterTitleDTO()
+                {
+                    
+                }).ToList()
+            })
+            );
     }
 
-    [HttpDelete]
-    public async Task<IActionResult> DeleteSmth()
-    {
-        return Ok();
-    }
 
 }

@@ -11,5 +11,20 @@ public class DbService : IDbService
     {
         _context = context;
     }
+
+    public async Task<ICollection<Character>> GetCharacter(int characterId)
+    {
+        return await _context.Characters
+            .Include(e => e.CharacterTitles)
+            .Include(e => e.Backpacks)
+            .ThenInclude(e => e.Items)
+            .Where(e => e.Id == characterId)
+            .ToListAsync();
+    }
+
+    public async Task<bool> DoesCharacterExist(int characterId)
+    {
+        return await _context.Characters.AnyAsync(e => e.Id == characterId);
+    }
     
 }

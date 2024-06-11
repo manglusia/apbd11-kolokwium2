@@ -1,7 +1,8 @@
 ﻿using Kolokwium2.Models;
 namespace Kolokwium2.Services;
 
-public class IDbService
+public interface IDbService
 {
-    
+    Task<ICollection<Character>> GetCharacter(int characterId);
+    Task<bool> DoesCharacterExist(int characterId);
 }
