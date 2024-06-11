@@ -34,9 +34,10 @@ public class Controller : ControllerBase
                 LastName = e.LastName,
                 CurrentWeight = e.CurrentWeight,
                 MaxWeight = e.MaxWeight,
-                Title = e.CharacterTitles.Select(i=>new CharacterTitleDTO()
+                Title = e.CharacterTitles.Select(c=>new CharacterTitleDTO()
                 {
-                    
+                    Title = ,
+                    AcquiredAt = c.AcquiredAt
                 }).ToList()
             })
             );

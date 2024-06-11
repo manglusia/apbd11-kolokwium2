@@ -28,9 +28,16 @@ public class ItemDTO
     public int Weight { get; set; }
 }
 
+public class TitleDTO
+{
+    public int Id { get; set; }
+    public string? Name { get; set; }
+}
+
 public class CharacterTitleDTO
 {
     public int CharacterId { get; set; }
     public int TitleId { get; set; }
     public DateTime AcquiredAt { get; set; }
+    public ICollection<TitleDTO> Title { get; set; } = new HashSet<TitleDTO>();
 }
